@@ -1,0 +1,41 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %} <title>Student Login</title> {% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static '/cust_admin.css' %}"> {% endblock %}
+{% block navItem %}
+<li class="nav-item">
+    <a href="{% url 'index'%}" class="nav-link">Home</a>
+</li>
+{% endblock %}
+{% block page %}
+<!-- <div class="container bg-danger">
+    {% if error %}
+    <div class="msg">{{error}}</div>
+    {% endif %}
+</div> -->
+
+{% for msg in messages %}
+<div class="alert alert-dismissible fade show my-3 bg-light" id="at">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+     <p class="text-danger text-center at">{{msg}}</p>
+</div>
+{% endfor %}
+{% if just_added %}
+    <div class=" alert alert-dismissible fade show bg-light my-0" id="fb">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Successfully added <span class="text-primary">{{just_added}}</span></h4>
+    </div>
+{% endif %}
+<div class=" container  ad">
+    <h3 class="bg-primary text-white pl-3 hd">Student Login</h3>
+    <form action="" style=" padding: 5px; width: 80%;" method="post">
+        {% csrf_token %}
+            <label for="d" class="form-control-label" >Full Name:</label>
+            <input type="text" class="form-in" id="d", name="full_name" placeholder="Full Name">
+            <label for="e" class="form-control-label" >Admission No:</label>
+            <input type="password" class="form-in" id="e", name="admin_no" placeholder="password" required>
+                <input type="submit" value= "Login" class=" but bg-success">
+    </form>
+</div>
+{% endblock %}
+ 

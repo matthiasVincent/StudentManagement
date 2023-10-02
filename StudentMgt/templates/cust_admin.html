@@ -1,0 +1,33 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %} <title>Admin home</title> {% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static '/cust_admin.css' %}"> {% endblock %}
+{% block navItem %}
+<li class="nav-item">
+    <a href="/" class="nav-link">Home</a>
+</li>
+{% endblock %}
+{% block page %}
+
+{% for msg in messages %}
+<div class="alert alert-dismissible fade show my-3 bg-light" id="at">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+     <p class="text-danger text-center at">{{msg}}</p>
+</div>
+{% endfor %}
+<div class=" container  ad">
+    <h3 class="bg-primary text-white pl-3 hd">Admin Login Page</h3>
+    <form action="" style=" padding: 5px; width: 80%;" method="post">
+        {% csrf_token %}
+            <label for="d" class="form-control-label" >Username:</label>
+            <input type="text" class="form-in" id="d", name="username" value="{{name}}"  placeholder="Username">
+            <label for="e" class="form-control-label" >Email:</label>
+            <input type="email" class="form-in" id="e", name="email" value="{{admin_no}}" placeholder="you@gmail.com">
+            <label for="p" class="form-control-label" >password:</label>
+            <input type="password" class="form-in" id="p", name="password" value="{{admin_no}}" required>
+        <input type="submit" class=" but bg-success">
+    </form>
+</div>
+{% endblock %}
+
+{% block script %} <script src="{% static '/cust_admin.js' %}"></script> {% endblock %}

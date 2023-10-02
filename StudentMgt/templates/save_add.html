@@ -1,0 +1,59 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %} <title>Admin home</title> {% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static '/cust_admin.css' %}"> {% endblock %}
+{% block navItem %}
+<li class="nav-item">
+    <a href="/" class="nav-link">Home</a>
+</li>
+{% endblock %}
+{% block page %}
+<!-- <div class="container bg-danger">
+    {% if error %}
+    <div class="msg">{{error}}</div>
+    {% endif %}
+</div> -->
+
+{% for msg in messages %}
+<div class="alert alert-dismissible fade show my-3 bg-light" id="at">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+     <p class="text-danger text-center at">{{msg}}</p>
+</div>
+{% endfor %}
+{% if just_added %}
+    <div class=" alert alert-dismissible fade show bg-light my-0" id="fb">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Successfully added <span class="text-primary">{{just_added}}</span></h4>
+    </div>
+{% endif %}
+<div class=" container  ad">
+    <h3 class="bg-primary text-white pl-3 hd">Add User</h3>
+    <form action="" style=" padding: 5px; width: 80%;" method="post">
+        {% csrf_token %}
+            <label for="d" class="form-control-label" >Username:</label>
+            <input type="text" class="form-in" id="d", name="username" placeholder="Username">
+            <label for="e" class="form-control-label" >Email:</label>
+            <input type="email" class="form-in" id="e", name="email" placeholder="you@gmail.com" required>
+            <label for="p" class="form-control-label" >First Name:</label>
+            <input type="text" class="form-in" id="p", name="first" placeholder="Last Name" required>
+            <label for="l" class="form-control-label" >Last Name:</label>
+            <input type="text" class="form-in" id="l", name="last" placeholder="Last Name" required>
+            <label for="d" class="form-control-label" >Department:</label>
+            <input type="text" class="form-in" id="d", name="dept_name" placeholder="Department" required>
+            <label for="c" class="form-control-label" >Class:</label>
+            <input type="text" class="form-in" id="c", name="stuclass" placeholder="Class" required>
+            <label for="a" class="form-control-label" >Admission No:</label>
+            <input type="text" class="form-in" id="a", name="admin_no" placeholder="Admission Number" required>
+            <label for="s" class="form-control-label" >Sex:</label>
+            <input type="text" class="form-in" id="s", name="sex" placeholder="Sex" required>
+            <div class="form-group d-flex">
+                <input type="submit" value= "Add" class=" but bg-success">
+                <input type="submit" value= "save and add another" class=" but bg-success">
+            </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static '/admin_page.js' %}"></script>
+{% endblock %}

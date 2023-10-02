@@ -1,0 +1,139 @@
+{% extends './base.html' %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static '/studenthome.css' %}"> {% endblock %}
+{% block navlist %}
+<ul class="nav" style="color: white ;">
+{% block navItem %}
+<li class="nav-item">
+    <a href="{% url 'index' %}" class="nav-link">Home</a>
+</li>
+<li class="nav-item">
+    <a href="#subject" class="nav-link" data-toggle="pill">view subject</a>
+</li>
+
+<li class="nav-item">
+    <a href="#course" class="nav-link" data-toggle="pill">view course mates</a>
+</li>
+<li class="nav-item">
+    <a href="#clas" class="nav-link" data-toggle="pill">view class mates</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'logout_student' %}" class="nav-link">logout {{student.full_name}}</a>
+</li>
+<!-- {% if admin_no %}
+ <li class="nav-item">
+<a href="{% url 'index'%}" class="nav-link">Logout {{admin_no}}</a>
+</li>
+{% endif %}
+ -->
+{% endblock %}
+</ul>
+{% endblock %}
+{% block page %}
+<div class="container-fluid p-0" style="height: 600px;">
+    <div class="row bg-primary" style="width: 100%; height: 100%; overflow: auto; padding-bottom: 20px; margin-bottom: 20px;">
+        <div class="col-sm-4 col-md-5 p-3">
+            <div class="jumbotron p-3 bg-light text-dark rounded">
+                <h2 class="text-success">Welcome, {{student.full_name}}</h2>
+                <p>Department: <strong>{{student.dept_id.name}}</strong></p>
+                <p>Level: <strong>{{student.StuClass.name}}</strong></p>
+                <p>Admission Number: <strong>{{student.admin_no}}</strong></p>
+                <p>Sex: <strong>{{student.sex}}</strong></p>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-7 p-3" style="overflow: auto;">
+            <div class="tab-content">
+                <div class="tab-pane active p-3 bg-info rounded" id="subject">
+                    <h2>Your Subjects to Register</h2>
+                    <ul style="list-style:none;">
+                        {% for sub in student.dept_id.subject_set.all %}
+                        <li>
+                        <input type="checkbox" id="ch{{forloop.counter}}">
+                        <label for="ch{{forloop.counter}}">{{sub.name}}</label>
+                        </li>
+                         {% endfor %}
+                    </ul>
+                </div>
+                <div class="tab-pane" id="course" style="overflow: auto;">
+                    <div class="container-fluid p-3 bg-primary text-white rounded">
+                        <h2>Your Course Mates and Their Bio Data</h2>
+                        <input type="text" class="form-control" id="myin2" placeholder="Search Student">
+                        <table class="table table-responsive-sm table-hover table-bordered mt-2">
+                            <thead>
+                                <th>Name</th>
+                                <th>Admission Number</th>
+                                <th>Sex</th>
+                                <th>Department</th>
+                            </thead>
+                            <tbody id="tbo">
+                                {% for st in course_mate %}
+                                <tr>
+                                    <td>{{st}}</td>
+                                    <td>{{st.admin_no}}</td>
+                                    <td>{{st.sex}}</td>
+                                    <td>{{st.dept_id.name}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+                <div class="tab-pane" id="clas">
+                    <div class="container-fluid p-3 bg-warning text-white rounded">
+                        <h2>Your Class Mates and Their Bio Data</h2>
+                        <input type="text" class="form-control" id="myin" placeholder="Search Student">
+                        <table class="table table-responsive-sm table-hover table-bordered mt-2">
+                            <thead>
+                                <th>Name</th>
+                                <th>Admission Number</th>
+                                <th>Sex</th>
+                                <th>Department</th>
+                            </thead>
+                            <tbody id="tbo1">
+                                {% for st in class_mate %}
+                                <tr class="r">
+                                    <td>{{st}}</td>
+                                    <td>{{st.admin_no}}</td>
+                                    <td>{{st.sex}}</td>
+                                    <td>{{st.dept_id.name}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table> 
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="container-fluid p-3 bg-primary text-white">
+    <h2 class="n">Welcome, {{student.full_name}}</h2>
+    <p>Department: <strong>{{student.dept_id.name}}</strong></p>
+    <p>Level: <strong>{{student.StuClass.name}}</strong></p>
+    <p>Admission Number: <strong>{{student.admin_no}}</strong></p>
+    <p>Sex: <strong>{{student.sex}}</strong></p>
+</div> -->
+{% endblock %}
+
+<!-- <script>
+    $(document).ready(function(){
+    $("#myin").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      console.log(value)
+      $("#tbo tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+
+    $("#myin2").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#tbo1 tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+
+  });
+</script> -->
+{% block script %} <script src="{% static '/studenthome.js' %}"></script> {% endblock %}

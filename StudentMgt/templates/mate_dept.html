@@ -1,0 +1,35 @@
+{% extends './base.html' %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static '/mate_dept.css' %}"> {% endblock %}
+
+{% block navItem %}
+<li class="nav-item">
+    <a href="{% url 'index' %}" class="nav-link">Home</a>
+</li>
+<li class="nav-item">
+    <a href="{% url 'stuhome' admin_no %}" class="nav-link">go to dashboard</a>
+</li>
+{% endblock %}
+
+{% block page %}
+<div class="container-fluid p-3 bg-primary text-white">
+    <h2>Your Class Mates and Their Bio Data</h2>
+    <table class="table table-responsive-sm table-hover">
+        <thead>
+            <th>Name</th>
+            <th>Admission Number</th>
+            <th>Sex</th>
+            <th>Department</th>
+        </thead>
+            {% for st in student %}
+            <tr>
+                <td>{{st.name}}</td>
+                <td>{{st.admin_no}}</td>
+                <td>{{st.sex}}</td>
+                <td>{{st.dept_id.name}}</td>
+            </tr>
+            {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

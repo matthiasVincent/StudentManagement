@@ -1,0 +1,13 @@
+body{
+    padding-bottom: 50px;
+    overflow: auto;
+    
+.ac{
+    height: 80%;
+    overflow: auto;
+    background-color: rgb(196, 255, 218);
+    padding-bottom: 50px;
+    margin-bottom: 100px;
+}
+    
+}

@@ -1,0 +1,32 @@
+{% extends './base.html' %}
+{% load static %}
+{% block link %} <link rel="stylesheet" href="{% static '/StuLogin.css' %}"> {% endblock %}
+
+{% block navItem %}
+<li class="nav-item">
+    <a href="/" class="nav-link">Home</a>
+</li>
+{% endblock %}
+{% block page %}
+<!-- <div class="container bg-danger">
+    {% if error %}
+    <div class="msg">{{error}}</div>
+    {% endif %}
+</div> -->
+{% if error %}
+<div class="alert alert-dismissible fade show my-3 bg-light">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p class="text-danger text-center">{{error}}</p>
+</div>
+{% endif %}
+<div class="container fcont">
+    <form action="" style=" padding: 5px; width: 80%;" method="post">
+        {% csrf_token %}
+            <label for="d" class="form-control-label" >Name:</label>
+            <input type="text" class="form-in p-2" id="d", name="name" value="{{name}}" required>
+            <label for="p" class="form-control-label" >Admission Number:</label>
+            <input type="password" class="form-in p-2" id="p", name="admin_no" value="{{admin_no}}" required>
+        <input type="submit" class="form-su sub p-2 bg-success">
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends './base.html' %}
+{% load static %}
+{% block title %} <title>Admin home</title> {% endblock %}
+{% block link %} <link rel="stylesheet" href="{% static '/admin_page.css' %}"> {% endblock %}
+
+{% block navItem %}
+<li class="nav-item">
+    <a href="{% url 'add_user' %}" class="nav-link">Add User</a>
+</li>
+{% if user %}
+<li class="nav-item">
+    <a href="{% url 'logout_admin' %}" class="nav-link">logout {{user.username}}</a>
+</li>
+{% endif %}
+{% endblock %}
+{% block page %}
+<!-- {% if just_added %} -->
+
+<!-- {% endif %} -->
+<div class="container-fluid my-0 p-0 ac">
+    {% if just_added %}
+    <div class=" alert alert-dismissible fade show bg-light my-0" id="fb">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Successfully added <span class="text-primary">{{just_added}}</span></h4>
+    </div>
+    {% endif %}
+    <table class="table table-hover my-0 table-border-none bg-light">
+        <thead>
+            <th>FullName</th>
+            <th>Sex</th>
+            <th>Class</th>
+            <th>Department</th>
+            <th>Admission Number</th>
+        </thead>
+        {% for stu in student.reverse %}
+        <tr>
+            <td>{{stu.full_name}}</td>
+            <td>{{stu.sex}}</td>
+            <td>{{stu.dept_id.name}}</td>
+            <td>{{stu.StuClass.name}}</td>
+            <td>{{stu.admin_no}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}
+{% block script %} <script src="{% static '/admin_page.js' %}"></script> {% endblock %}
